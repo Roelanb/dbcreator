@@ -18,7 +18,7 @@ Content-Type: application/json
 
 
                 {
-                    "name": "TST3",
+                    "name": "TST",
                     "description": "TestApplication",
                     "isActive": true
              }
@@ -35,6 +35,6 @@ Content-Type: application/json
              }
 ### delete Applications
 
-DELETE {{endpoint}}{{version}}/Applications/TST3
+DELETE {{endpoint}}{{version}}/Applications/TST
 Content-Type: application/json
 

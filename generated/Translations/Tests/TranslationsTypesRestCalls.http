@@ -30,7 +30,7 @@ Content-Type: application/json
 
         {
             "translation_type": "T1",
-            "description": "TestTranslationType2",
+            "description": "TestTranslationType",
             "isActive": true
         }
 ### delete TranslationsTypes

@@ -13,28 +13,7 @@ public partial class Converter
     {
         return GenerateEntityClassString(objectToMap, objectToMap.Columns);
     }
-
-    public string GenerateRepositoryClassString(ObjectToMap objectToMap)
-    {
-        
-        return GenerateRepositoryClassString(objectToMap.NameSpace, objectToMap.TableName, objectToMap.EntityName, objectToMap.Columns, objectToMap.PrimaryKey);
-    }
-
-    public string GenerateIRepositoryClassString(ObjectToMap objectToMap)
-    {
-        return GenerateIRepositoryClassString(objectToMap.NameSpace, objectToMap.TableName, objectToMap.EntityName, objectToMap.Columns, objectToMap.PrimaryKey);
-    }
-
-    public string GenerateQueryClassString(ObjectToMap objectToMap)
-    {
-        return GenerateQueryClassString(objectToMap.NameSpace, objectToMap.TableName, objectToMap.EntityName, objectToMap.Columns, objectToMap.PrimaryKey);
-    }
-
-
-    public string GenerateControllerClassString(ObjectToMap objectToMap)
-    {
-        return GenerateControllerClassString(objectToMap.NameSpace, objectToMap.TableName, objectToMap.EntityName, objectToMap.Columns, objectToMap.PrimaryKey);
-    }
+ 
 
     public string GenerateExampleRestCallsString(ObjectToMap objectToMap)
     {

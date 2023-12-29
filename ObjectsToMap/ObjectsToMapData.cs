@@ -1,4 +1,4 @@
-public static class ObjectsToMapData
+public static partial class ObjectsToMapData
 {
     public static List<ObjectToMap> GetObjectsToMap()
     {
@@ -6,6 +6,8 @@ public static class ObjectsToMapData
 
         var connectionString = "server=.;database=MES;Persist Security Info=False;Integrated Security=True;TrustServerCertificate=True;";            
 
+        objectsToMap.Add(DefectQualityLevels(connectionString));
+        objectsToMap.Add(DefectPieceRefs(connectionString));
 
         objectsToMap.Add(new ObjectToMap
         {
@@ -34,9 +36,9 @@ public static class ObjectsToMapData
             PrimaryKey = "Name",
             Columns = new List<ColumnDefinition>
             {
-                new ColumnDefinition("Name", "string", "String","nvarchar", true,50, true, "Application", 100),
-                new ColumnDefinition("Description", "string", "String","nvarchar", false,500, false, "Description", 100),
-                new ColumnDefinition("IsActive", "bool", "Boolean","bit", false,0, false, "Active", 100)
+                new ColumnDefinition("Name", ColumnDataType.String, "String","nvarchar", true,50, true, "Application", 50),
+                new ColumnDefinition("Description", ColumnDataType.String, "String","nvarchar", false,500, false, "Description", 250),
+                new ColumnDefinition("IsActive", ColumnDataType.Bool, "Boolean","bit", false,0, false, "Active", 100)
             }
         });
 
@@ -66,8 +68,8 @@ public static class ObjectsToMapData
             PrimaryKey = "Name",
             Columns = new List<ColumnDefinition>
     {
-        new ColumnDefinition("Name", "string", "String","nvarchar", true,50, true, "Language", 100),
-        new ColumnDefinition("IsActive", "bool", "Boolean","bit", false,0, false, "Active", 100)
+        new ColumnDefinition("Name",  ColumnDataType.String, "String","nvarchar", true,50, true, "Language", 100),
+        new ColumnDefinition("IsActive",  ColumnDataType.Bool, "Boolean","bit", false,0, false, "Active", 100)
     }
         });
 
@@ -99,9 +101,9 @@ public static class ObjectsToMapData
             PrimaryKey = "translation_type",
             Columns = new List<ColumnDefinition>
     {
-        new ColumnDefinition("translation_type", "string", "String","nvarchar", true,20, true, "Type", 100),
-        new ColumnDefinition("IsActive", "bool", "Boolean","bit", false,0, false, "Active", 100),
-        new ColumnDefinition("Description", "string", "String","nvarchar", false,255, false, "Description", 100)
+        new ColumnDefinition("translation_type",  ColumnDataType.String, "String","nvarchar", true,20, true, "Type", 100),
+        new ColumnDefinition("IsActive",  ColumnDataType.Bool, "Boolean","bit", false,0, false, "Active", 100),
+        new ColumnDefinition("Description",  ColumnDataType.String, "String","nvarchar", false,255, false, "Description", 100)
     }
         });
         return objectsToMap;

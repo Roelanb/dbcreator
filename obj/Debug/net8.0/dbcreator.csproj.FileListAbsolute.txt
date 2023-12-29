@@ -145,3 +145,4 @@ F:\Projects\crud\dbcreator\bin\Debug\net8.0\Syncfusion.Blazor.SplitButtons.dll
 F:\Projects\crud\dbcreator\bin\Debug\net8.0\Syncfusion.ExcelExport.Net.dll
 F:\Projects\crud\dbcreator\bin\Debug\net8.0\Syncfusion.Licensing.dll
 F:\Projects\crud\dbcreator\bin\Debug\net8.0\Syncfusion.PdfExport.Net.dll
+F:\Projects\crud\dbcreator\obj\Debug\net8.0\dbcreator.sourcelink.json

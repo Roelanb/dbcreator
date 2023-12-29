@@ -32,11 +32,11 @@ public partial class Converter
             {
                 sb.AppendLine($"    [Required]");
             }
-            if (column.MaxLength.HasValue && column.DataType == "string")
+            if (column.MaxLength.HasValue && column.DataType == ColumnDataType.String)
             {
                 sb.AppendLine($"    [StringLength({column.MaxLength.Value})]");
             }
-            sb.AppendLine($"    public {column.DataType} {column.ColumnName} {{ get; set; }}");
+            sb.AppendLine($"    public {column.DataTypeToCSharpType()} {column.ColumnName} {{ get; set; }}");
         }
         sb.AppendLine("}");
         return sb.ToString();

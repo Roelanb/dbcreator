@@ -1,7 +1,18 @@
+public enum ColumnDataType
+{
+    String,
+    Int,
+    Bool,
+    DateTime,
+    Float,
+    Decimal,
+    Guid
+}
+
 public class ColumnDefinition
 {
     public string ColumnName { get; set; }
-    public string DataType { get; set; }
+    public ColumnDataType DataType { get; set; }
     public string DbType { get; set; }
     public string SqlType { get; set; }
     public bool IsPrimaryKey { get; set; }
@@ -17,7 +28,7 @@ public class ColumnDefinition
     public string TableHeader { get; set; }
     public int TableWidth { get; set; }
 
-    public ColumnDefinition(string columnName, string dataType, string dbType, string sqlType, bool isPrimaryKey, int? maxLength, bool isRequired, string tableHeader, int tableWidth)
+    public ColumnDefinition(string columnName, ColumnDataType dataType, string dbType, string sqlType, bool isPrimaryKey, int? maxLength, bool isRequired, string tableHeader, int tableWidth)
     {
         ColumnName = columnName;
         DataType = dataType;
@@ -30,5 +41,27 @@ public class ColumnDefinition
         TableHeader = tableHeader;
         TableWidth = tableWidth;
     }
-    
+
+    public string DataTypeToCSharpType()
+    {
+        switch (DataType)
+        {
+            case ColumnDataType.String:
+                return "string";
+            case ColumnDataType.Int:
+                return "int";
+            case ColumnDataType.Bool:
+                return "bool";
+            case ColumnDataType.DateTime:
+                return "DateTime";
+            case ColumnDataType.Float:
+                return "float";
+            case ColumnDataType.Decimal:
+                return "decimal";
+            case ColumnDataType.Guid:
+                return "Guid";
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }   
 }
