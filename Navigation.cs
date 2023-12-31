@@ -69,6 +69,11 @@ public class Navigation
                 {
                     Header = "LogoutIdleTimer",
                     Template = "LogoutIdleTimerEditor"
+                },
+                new NavigationItem
+                {
+                    Header = "ManufacturingType",
+                    Template = "ManufacturingTypeEditor"
                 }
             }
         });
