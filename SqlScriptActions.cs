@@ -22,6 +22,7 @@ public partial class SqlScriptActions
         {
             if (commandString.Trim() != "")
             {
+                Console.WriteLine(commandString);
                 ExecuteNonQuery(connnectionString, commandString);
             }
         }

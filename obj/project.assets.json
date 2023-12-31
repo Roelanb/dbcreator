@@ -11079,23 +11079,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Bart\\.nuget\\packages\\": {},
+    "C:\\Users\\bart\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Projects\\crud\\dbcreator\\dbcreator.csproj",
+      "projectUniqueName": "D:\\Projects\\crud\\dbcreator\\dbcreator.csproj",
       "projectName": "dbcreator",
-      "projectPath": "F:\\Projects\\crud\\dbcreator\\dbcreator.csproj",
-      "packagesPath": "C:\\Users\\Bart\\.nuget\\packages\\",
-      "outputPath": "F:\\Projects\\crud\\dbcreator\\obj\\",
+      "projectPath": "D:\\Projects\\crud\\dbcreator\\dbcreator.csproj",
+      "packagesPath": "C:\\Users\\bart\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\crud\\dbcreator\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Bart\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\bart\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -11103,6 +11103,7 @@
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },

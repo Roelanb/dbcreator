@@ -8,7 +8,8 @@ public static partial class ObjectsToMapData
 
         objectsToMap.Add(DefectQualityLevels(connectionString));
         objectsToMap.Add(DefectPieceRefs(connectionString));
-
+        objectsToMap.Add(LogoutIdleTimer(connectionString));
+        
         objectsToMap.Add(new ObjectToMap
         {
             Name = "Applications",

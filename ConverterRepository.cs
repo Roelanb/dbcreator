@@ -14,6 +14,8 @@ public partial class Converter
 
         var sb = new StringBuilder();
     
+        var primaryKeyType = o.Columns.Find(x => x.ColumnName == o.PrimaryKey).DataTypeToCSharpType();  
+
         sb.AppendLine("using System.Data;");
         sb.AppendLine("using Dapper;");
         sb.AppendLine($"using DataService.Config.Features.{o.FolderLevel1}.Entities;");
@@ -33,7 +35,9 @@ public partial class Converter
         sb.AppendLine("        _connectionStringProvider = connectionStringProvider;");
         sb.AppendLine("    }");
         sb.AppendLine("");
-        sb.AppendLine($"    public async Task<QueryResult<IEnumerable<{o.EntityName}>>> ReadAsync(string? {ConvertStringToCamelCase(o.PrimaryKey)})");
+
+        
+        sb.AppendLine($"    public async Task<QueryResult<IEnumerable<{o.EntityName}>>> ReadAsync({primaryKeyType}? {ConvertStringToCamelCase(o.PrimaryKey)})");
         sb.AppendLine("    {");
         sb.AppendLine("        try");
         sb.AppendLine("        {");
@@ -116,7 +120,7 @@ public partial class Converter
         sb.AppendLine("        }");
         sb.AppendLine("    }");
         sb.AppendLine("");
-        sb.AppendLine($"public async Task<QueryResult<IEnumerable<{o.EntityName}>>> DeleteAsync(string {ConvertStringToCamelCase(o.PrimaryKey)})");
+        sb.AppendLine($"public async Task<QueryResult<IEnumerable<{o.EntityName}>>> DeleteAsync({primaryKeyType} {ConvertStringToCamelCase(o.PrimaryKey)})");
         sb.AppendLine("");
         sb.AppendLine("    {");
         sb.AppendLine("        try");
@@ -166,10 +170,13 @@ public partial class Converter
         sb.AppendLine("");
         sb.AppendLine($"public interface I{o.TableName}Repository");
         sb.AppendLine("{");
-        sb.AppendLine($"    Task<QueryResult<IEnumerable<{o.EntityName}>>> ReadAsync(string? {ConvertStringToCamelCase(keyFieldName)});");
+        
+        var primaryKeyType = o.Columns.Find(x => x.ColumnName == o.PrimaryKey).DataTypeToCSharpType();  
+
+        sb.AppendLine($"    Task<QueryResult<IEnumerable<{o.EntityName}>>> ReadAsync({primaryKeyType}? {ConvertStringToCamelCase(keyFieldName)});");
         sb.AppendLine($"    Task<QueryResult<IEnumerable<{o.EntityName}>>> CreateAsync({o.EntityName} {ConvertStringToCamelCase(o.EntityName)});");
         sb.AppendLine($"    Task<QueryResult<IEnumerable<{o.EntityName}>>> UpdateAsync({o.EntityName} {ConvertStringToCamelCase(o.EntityName)});");
-        sb.AppendLine($"    Task<QueryResult<IEnumerable<{o.EntityName}>>> DeleteAsync(string {ConvertStringToCamelCase(keyFieldName)});");
+        sb.AppendLine($"    Task<QueryResult<IEnumerable<{o.EntityName}>>> DeleteAsync({primaryKeyType} {ConvertStringToCamelCase(keyFieldName)});");
         sb.AppendLine("}");
         sb.AppendLine("");
 

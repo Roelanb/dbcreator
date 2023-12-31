@@ -1,7 +1,16 @@
-﻿var generateBackend = true;
-var generateFrontend = false;
-var generateNavigation = false;
+﻿//     var connectionString = "server=.;database=MES;Persist Security Info=False;Integrated Security=True;TrustServerCertificate=True;";            
 
+// var test = ObjectsToMapData.LogoutIdleTimer(connectionString);
+
+// test.LoadColumnsFromSqlCreateCommand();
+
+// return;
+
+var generateBackend = true;
+var generateFrontend = true;
+var generateNavigation = true;
+
+var cleanUpFiles = true;
 
 var converter = new Converter();
 
@@ -112,13 +121,16 @@ foreach (var objectToMap in objectsToMap)
 if (generateBackend)
 {
     // copy all files from the generated folder to the project folder
-    var source = @"F:\Projects\crud\dbcreator\generated";
-    var destination = @"F:\Projects\crud\CrudApi\DataService.Config\Features";
+    var source = @"D:\Projects\crud\dbcreator\generated";
+    var destination = @"D:\Projects\crud\CrudApi\DataService.Config\Features";
 
     foreach (var objectToMap in objectsToMap)
     {
         var sourceFolder = source + "\\" + objectToMap.FolderLevel1 + "\\Controllers\\V1";
         var destinationFolder = destination + "\\" + objectToMap.FolderLevel1 + "\\Controllers\\V1";
+
+        // create the desitonation folder
+        Directory.CreateDirectory(destinationFolder);
 
         // copy the file with *.cs extension from source to destination
         foreach (string dirPath in Directory.GetFiles(sourceFolder, "*.cs", SearchOption.TopDirectoryOnly))
@@ -136,6 +148,9 @@ if (generateBackend)
         var sourceFolder = source + "\\" + objectToMap.FolderLevel1 + "\\Entities";
         var destinationFolder = destination + "\\" + objectToMap.FolderLevel1 + "\\Entities";
 
+        // create the desitonation folder
+        Directory.CreateDirectory(destinationFolder);
+
         // copy the file with *.cs extension from source to destination
         foreach (string dirPath in Directory.GetFiles(sourceFolder, "*.cs", SearchOption.TopDirectoryOnly))
         {
@@ -150,6 +165,9 @@ if (generateBackend)
     {
         var sourceFolder = source + "\\" + objectToMap.FolderLevel1 + "\\Queries";
         var destinationFolder = destination + "\\" + objectToMap.FolderLevel1 + "\\Queries";
+
+        // create the desitonation folder
+        Directory.CreateDirectory(destinationFolder);
 
         // copy the file with *.cs extension from source to destination
         foreach (string dirPath in Directory.GetFiles(sourceFolder, "*.cs", SearchOption.TopDirectoryOnly))
@@ -167,6 +185,9 @@ if (generateBackend)
         var sourceFolder = source + "\\" + objectToMap.FolderLevel1 + "\\Shared";
         var destinationFolder = destination + "\\" + objectToMap.FolderLevel1 + "\\Shared";
 
+        // create the desitonation folder
+        Directory.CreateDirectory(destinationFolder);
+
         // copy the file with *.cs extension from source to destination
         foreach (string dirPath in Directory.GetFiles(sourceFolder, "*.cs", SearchOption.TopDirectoryOnly))
         {
@@ -182,8 +203,29 @@ if (generateBackend)
         var sourceFolder = source + "\\" + objectToMap.FolderLevel1 + "\\Database";
         var destinationFolder = destination + "\\" + objectToMap.FolderLevel1 + "\\Database";
 
+        // create the desitonation folder
+        Directory.CreateDirectory(destinationFolder);
+
         // copy the file with *.cs extension from source to destination
         foreach (string dirPath in Directory.GetFiles(sourceFolder, "*.sql", SearchOption.TopDirectoryOnly))
+        {
+            Console.WriteLine(dirPath);
+            Console.WriteLine(dirPath.Replace(sourceFolder, destinationFolder));
+
+            File.Copy(dirPath, dirPath.Replace(sourceFolder, destinationFolder), true);
+        }
+    }
+
+    foreach (var objectToMap in objectsToMap)
+    {
+        var sourceFolder = source + "\\" + objectToMap.FolderLevel1 + "\\Tests";
+        var destinationFolder = destination + "\\" + objectToMap.FolderLevel1 + "\\Tests";
+
+        // create the desitonation folder
+        Directory.CreateDirectory(destinationFolder);
+        
+        // copy the file with *.cs extension from source to destination
+        foreach (string dirPath in Directory.GetFiles(sourceFolder, "*.http", SearchOption.TopDirectoryOnly))
         {
             Console.WriteLine(dirPath);
             Console.WriteLine(dirPath.Replace(sourceFolder, destinationFolder));
@@ -196,8 +238,8 @@ if (generateBackend)
 if (generateFrontend)
 {
     // copy all files from the generated folder to the project folder
-    var source = @"F:\Projects\crud\dbcreator\generated\features\config\Models";
-    var destination = @"F:\Projects\crud\CrudUi\CrudUi\Pages\Features\Config\Models";
+    var source = @"D:\Projects\crud\dbcreator\generated\features\config\Models";
+    var destination = @"D:\Projects\crud\CrudUi\CrudUi\Pages\Features\Config\Models";
 
     // copy the file with *.cs extension from source to destination
     foreach (string dirPath in Directory.GetFiles(source, "*.cs", SearchOption.TopDirectoryOnly))
@@ -208,8 +250,8 @@ if (generateFrontend)
         File.Copy(dirPath, dirPath.Replace(source, destination), true);
     }
 
-    source = @"F:\Projects\crud\dbcreator\generated\features\config\Services";
-    destination = @"F:\Projects\crud\CrudUi\CrudUi\Pages\Features\Config\Services";
+    source = @"D:\Projects\crud\dbcreator\generated\features\config\Services";
+    destination = @"D:\Projects\crud\CrudUi\CrudUi\Pages\Features\Config\Services";
 
     // copy the file with *.cs extension from source to destination
     foreach (string dirPath in Directory.GetFiles(source, "*.cs", SearchOption.TopDirectoryOnly))
@@ -220,8 +262,8 @@ if (generateFrontend)
         File.Copy(dirPath, dirPath.Replace(source, destination), true);
     }
 
-    source = @"F:\Projects\crud\dbcreator\generated\features\config\Pages\Editors";
-    destination = @"F:\Projects\crud\CrudUi\CrudUi\Pages\Features\Config\Pages\Editors";
+    source = @"D:\Projects\crud\dbcreator\generated\features\config\Pages\Editors";
+    destination = @"D:\Projects\crud\CrudUi\CrudUi\Pages\Features\Config\Pages\Editors";
 
     // copy the file with *.cs extension from source to destination
     foreach (string dirPath in Directory.GetFiles(source, "*.*", SearchOption.TopDirectoryOnly))
@@ -247,8 +289,8 @@ if (generateNavigation)
 
 
     // copy all files from the generated folder to the project folder
-    var source = @"F:\Projects\crud\dbcreator\generated\features\config\Pages\Navigation";
-    var destination = @"F:\Projects\crud\CrudUi\CrudUi\Pages\Features\Config\Pages\Navigation";
+    var source = @"D:\Projects\crud\dbcreator\generated\features\config\Pages\Navigation";
+    var destination = @"D:\Projects\crud\CrudUi\CrudUi\Pages\Features\Config\Pages\Navigation";
 
     // copy the file with *.cs extension from source to destination
     foreach (string dirPath in Directory.GetFiles(source, "*.*", SearchOption.TopDirectoryOnly))
@@ -258,4 +300,10 @@ if (generateNavigation)
 
         File.Copy(dirPath, dirPath.Replace(source, destination), true);
     }
+}
+
+
+if (cleanUpFiles)
+{
+    Directory.Delete("generated", true);
 }

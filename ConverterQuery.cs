@@ -13,6 +13,8 @@ public partial class Converter
 
         var sb = new StringBuilder();
 
+        var primaryKeyType = o.Columns.Find(x => x.ColumnName == o.PrimaryKey).DataTypeToCSharpType();  
+
         sb.AppendLine("using DataService.Shared.Entities;");
         sb.AppendLine($"using DataService.Config.Features.{o.FolderLevel1}.Entities;");
         sb.AppendLine($"using DataService.Config.Features.{o.FolderLevel1}.Shared;");
@@ -28,7 +30,8 @@ public partial class Converter
         sb.AppendLine("{");
         sb.AppendLine($"    public sealed record Query() : IRequest<QueryResult<IEnumerable<{o.EntityName}>>>");
         sb.AppendLine("    {");
-        sb.AppendLine($"        public string? {o.PrimaryKey} {{ get; set; }} = null;");
+
+        sb.AppendLine($"        public {primaryKeyType}? {o.PrimaryKey} {{ get; set; }} = null;");
         sb.AppendLine("    }"); 
         sb.AppendLine("");
         sb.AppendLine($"    internal class Handler : IRequestHandler<Query, QueryResult<IEnumerable<{o.EntityName}>>>");
@@ -103,7 +106,9 @@ public partial class Converter
         sb.AppendLine("{");
         sb.AppendLine($"    public sealed record Delete{o.EntityName}Command : IRequest<QueryResult<IEnumerable<{o.EntityName}>>>");
         sb.AppendLine("    {");
-        sb.AppendLine($"        public string {o.PrimaryKey} {{ get; set; }}");
+
+
+        sb.AppendLine($"        public {primaryKeyType} {o.PrimaryKey} {{ get; set; }}");
         sb.AppendLine("         public AuditInformation AuditInformation { get; set; }");
         sb.AppendLine("    }");
         sb.AppendLine("");

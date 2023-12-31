@@ -13,6 +13,8 @@ public partial class Converter
 
         var sb = new StringBuilder();
 
+        var primaryKeyType = o.Columns.Find(x => x.ColumnName == o.PrimaryKey).DataTypeToCSharpType();  
+
         sb.AppendLine("using DataService.Shared.Entities;");
         sb.AppendLine($"using DataService.Config.Features.{o.FolderLevel1}.Entities;");
         sb.AppendLine($"using DataService.Config.Features.{o.FolderLevel1}.Queries;");
@@ -55,7 +57,7 @@ public partial class Converter
         sb.AppendLine($"    [ProducesResponseType(StatusCodes.Status400BadRequest)]");
         sb.AppendLine($"    [ProducesResponseType(StatusCodes.Status500InternalServerError)]");
         sb.AppendLine($"    [Tags(\"{o.TableName}\")]");
-        sb.AppendLine($"    public async Task<ActionResult<QueryResult<IEnumerable<{o.EntityName}>>>> Read{o.TableName}(string {ConvertStringToCamelCase(o.PrimaryKey)})");
+        sb.AppendLine($"    public async Task<ActionResult<QueryResult<IEnumerable<{o.EntityName}>>>> Read{o.TableName}({primaryKeyType} {ConvertStringToCamelCase(o.PrimaryKey)})");
         sb.AppendLine("    {");
         sb.AppendLine("");
         sb.AppendLine($"        var result = await _mediator.Send(new Read{o.TableName}.Query {{ {o.PrimaryKey} = {ConvertStringToCamelCase(o.PrimaryKey)}}});");
@@ -98,7 +100,7 @@ public partial class Converter
         sb.AppendLine($"    [ProducesResponseType(StatusCodes.Status400BadRequest)]");
         sb.AppendLine($"    [ProducesResponseType(StatusCodes.Status500InternalServerError)]");
         sb.AppendLine($"    [Tags(\"{o.TableName}\")]");
-        sb.AppendLine($"    public async Task<ActionResult<QueryResult<IEnumerable<{o.EntityName}>>>> Delete{o.TableName}(string {ConvertStringToCamelCase(o.PrimaryKey)})");
+        sb.AppendLine($"    public async Task<ActionResult<QueryResult<IEnumerable<{o.EntityName}>>>> Delete{o.TableName}({primaryKeyType} {ConvertStringToCamelCase(o.PrimaryKey)})");
         sb.AppendLine("    {");
         sb.AppendLine("");
         sb.AppendLine($"        var result = await _mediator.Send(new Delete{o.TableName}.Delete{o.EntityName}Command {{{o.PrimaryKey} = {ConvertStringToCamelCase(o.PrimaryKey)}}});");

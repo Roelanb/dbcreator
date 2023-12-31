@@ -59,6 +59,21 @@ public class Navigation
             }
         });
 
+        navigation.Add(new NavigationItem
+        {
+            Header = "MasterData",
+            Template = "ConfigMasterData",
+            ChildItems = new List<NavigationItem>
+            {
+                new NavigationItem
+                {
+                    Header = "LogoutIdleTimer",
+                    Template = "LogoutIdleTimerEditor"
+                }
+            }
+        });
+
+
         return navigation;
     }
 
