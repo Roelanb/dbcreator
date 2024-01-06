@@ -7,6 +7,7 @@ public static partial class ObjectsToMapData
         var connectionString = "server=.;database=MES;Persist Security Info=False;Integrated Security=True;TrustServerCertificate=True;";            
 
         objectsToMap.Add(DefectQualityLevels(connectionString));
+        objectsToMap.Add(QualityCategories(connectionString));
         objectsToMap.Add(DefectPieceRefs(connectionString));
         objectsToMap.Add(LogoutIdleTimer(connectionString));
         objectsToMap.Add(ManufacturingType(connectionString));
@@ -108,6 +109,12 @@ public static partial class ObjectsToMapData
         new ColumnDefinition("Description",  ColumnDataType.String, "String","nvarchar", false,255, false, "Description", 100)
     }
         });
+
+        foreach (var objectToMap in objectsToMap)
+        {
+            objectToMap.RecalculateColumnWidths();
+        }
+
         return objectsToMap;
     }
 

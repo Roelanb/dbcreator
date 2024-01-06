@@ -79,7 +79,7 @@ public partial class Converter
         sb.AppendLine("    </SfToolbar>");
         sb.AppendLine("");
         sb.AppendLine("    <GridColumns>");
-        sb.AppendLine("        <GridColumn HeaderText=\"\" Width=\"30\" TextAlign=\"TextAlign.Left\">");
+        sb.AppendLine("        <GridColumn HeaderText=\"\" Width=\"30\" MinWidth=\"120\" TextAlign=\"TextAlign.Left\">");
         sb.AppendLine("            <GridCommandColumns>");
         sb.AppendLine("                <GridCommandColumn Type=\"CommandButtonType.Edit\" ButtonOption=\"@(new CommandButtonOptions() {IconCss=\"e-icons e-edit\", CssClass=\"e-flat\" })\"></GridCommandColumn>");
         sb.AppendLine("                <GridCommandColumn Type=\"CommandButtonType.Delete\" ButtonOption=\"@(new CommandButtonOptions() {IconCss=\"e-icons e-delete\", CssClass=\"e-flat\" })\"></GridCommandColumn>");

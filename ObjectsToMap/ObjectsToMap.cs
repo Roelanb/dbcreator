@@ -57,29 +57,19 @@ public class ObjectToMap
             {
                 continue;
             }
-         
+
             if (line.StartsWith("--") || line.StartsWith("/*") || line.StartsWith("*/"))
             {
                 continue;
             }
-           
+
 
 
             if (line.StartsWith("ALTER") || line.StartsWith("DROP") || line.StartsWith("IF") || line.StartsWith("INSERT") || line.StartsWith("UPDATE") || line.StartsWith("DELETE") || line.StartsWith("BEGIN") || line.StartsWith("END"))
             {
                 continue;
             }
-           
-     
 
-            //  [id] [int] IDENTITY(1,1) NOT NULL,
-            //             [Application] [nvarchar](50) NULL,
-            //             [Site] [nvarchar](50) NOT NULL,
-            //             [Area] [nvarchar](50) NOT NULL,
-            //             [Seconds] [int] NOT NULL,
-            //             [IsActive] [bit] NOT NULL,
-            //             [LastEditDate] [datetime] NULL,
-            //             [UserName] [nvarchar](255) NULL,
 
             if (line.StartsWith("[") && !line.Contains("ASC") && !line.Contains("DESC"))
             {
@@ -96,36 +86,42 @@ public class ObjectToMap
                 var dbType = "String";
                 var sqlType = "nvarchar";
                 int? maxLength = null;
+                var columnWitdh = 250;
 
                 if (dataType == "int")
                 {
                     columnDataType = ColumnDataType.Int;
                     dbType = "Int32";
                     sqlType = "int";
+                    columnWitdh = 100;
                 }
                 if (dataType == "bit")
                 {
                     columnDataType = ColumnDataType.Bool;
                     dbType = "Boolean";
                     sqlType = "bit";
+                    columnWitdh = 100;
                 }
                 if (dataType == "datetime")
                 {
                     columnDataType = ColumnDataType.DateTime;
                     dbType = "DateTime";
                     sqlType = "datetime";
+                    columnWitdh = 150;
                 }
                 if (dataType == "decimal")
                 {
                     columnDataType = ColumnDataType.Decimal;
                     dbType = "Decimal";
                     sqlType = "decimal";
+                    columnWitdh = 100;
                 }
                 if (dataType == "float")
                 {
                     columnDataType = ColumnDataType.Float;
                     dbType = "Float";
                     sqlType = "float";
+                    columnWitdh = 100;
                 }
                 if (dataType.Contains("nvarchar"))
                 {
@@ -133,11 +129,14 @@ public class ObjectToMap
                     maxLength = int.Parse(dataType.Substring(dataType.IndexOf("(") + 1, dataType.IndexOf(")") - dataType.IndexOf("(") - 1));
                     dbType = "String";
                     sqlType = "nvarchar";
+                    columnWitdh = 250;
                 }
 
                 Console.WriteLine($"Column: {columnName} {dataType} {isNullable}");
 
-                columns.Add(new ColumnDefinition(columnName, columnDataType, dbType, sqlType, isNullable, maxLength, true, columnName, 250));
+
+
+                columns.Add(new ColumnDefinition(columnName, columnDataType, dbType, sqlType, isNullable, maxLength, true, columnName, columnWitdh));
             }
             if (line.Contains("ASC") || line.Contains("DESC"))
             {
@@ -167,6 +166,8 @@ public class ObjectToMap
             }
         }
 
+        RecalculateColumnWidths();
+
         var columnString = GenerateColumnDefinitions();
 
         var objectDefinition = File.ReadAllText(@$"D:\Projects\crud\dbcreator\ObjectsToMap\otm_{Name}.cs");
@@ -187,21 +188,55 @@ public class ObjectToMap
     public string GenerateColumnDefinitions()
     {
         var sb = new StringBuilder();
-        
+
         sb.AppendLine($"PrimaryKey = \"{PrimaryKey}\",");
         sb.AppendLine($"Columns = new List<ColumnDefinition>");
         sb.AppendLine($"{{");
-        
+
         var columns = new List<ColumnDefinition>();
         foreach (var column in Columns)
         {
-            sb.AppendLine($"new ColumnDefinition(\"{column.ColumnName}\", ColumnDataType.{column.DataType}, \"{column.DbType}\",\"{column.SqlType}\", {column.IsPrimaryKey.ToString().ToLower()}, {column.MaxLength?.ToString()??"null"}, {column.IsRequired.ToString().ToLower()}, \"{column.TableHeader}\", {column.TableWidth}),");
+            sb.AppendLine($"new ColumnDefinition(\"{column.ColumnName}\", ColumnDataType.{column.DataType}, \"{column.DbType}\",\"{column.SqlType}\", {column.IsPrimaryKey.ToString().ToLower()}, {column.MaxLength?.ToString() ?? "null"}, {column.IsRequired.ToString().ToLower()}, \"{column.TableHeader}\", {column.TableWidth}),");
         }
 
         sb.AppendLine($"}},");
 
         Console.WriteLine(sb.ToString());
-        
+
         return sb.ToString();
+    }
+
+    public void RecalculateColumnWidths()
+    {
+        var columnWidths = new List<int>();
+        foreach (var column in Columns)
+        {
+            if (column.DataType == ColumnDataType.Bool)
+            {
+                column.TableWidth = 100;
+            }
+            if (column.DataType == ColumnDataType.DateTime)
+            {
+                column.TableWidth = 150;
+            }
+            if (column.DataType == ColumnDataType.Decimal)
+            {
+                column.TableWidth = 100;
+            }
+            if (column.DataType == ColumnDataType.Float)
+            {
+                column.TableWidth = 100;
+            }
+            if (column.DataType == ColumnDataType.Int)
+            {
+                column.TableWidth = 100;
+            }
+            if (column.DataType == ColumnDataType.String)
+            {
+                column.TableWidth = 250;
+            }
+
+        }
+
     }
 }

@@ -1,0 +1,52 @@
+@endpoint=https://localhost:7295/
+@version=v1
+
+### get LogoutIdleTimer
+
+GET {{endpoint}}{{version}}/LogoutIdleTimer
+Content-Type: application/json
+
+### get LogoutIdleTimer by KeyField
+
+GET {{endpoint}}{{version}}/LogoutIdleTimer/TST
+Content-Type: application/json
+
+### post LogoutIdleTimer
+
+POST {{endpoint}}{{version}}/LogoutIdleTimer
+Content-Type: application/json
+
+
+                {
+                    "id": "id1",
+                    "Application": "Application1",
+                    "Site": "Site1",
+                    "Area": "Area1",
+                    "Seconds": 1,
+                    "IsActive": true,
+                    "LastEditDate": "2021-01-01T00:00:00",
+                    "UserName": "UserName1"
+
+             }
+### put LogoutIdleTimer
+
+PUT {{endpoint}}{{version}}/LogoutIdleTimer
+Content-Type: application/json
+
+
+                {
+                    "id": "id1",
+                    "Application": "Application1",
+                    "Site": "Site1",
+                    "Area": "Area1",
+                    "Seconds": 1,
+                    "IsActive": true,
+                    "LastEditDate": "2021-01-01T00:00:00",
+                    "UserName": "UserName1"
+
+             }
+### delete LogoutIdleTimer
+
+DELETE {{endpoint}}{{version}}/LogoutIdleTimer/TST
+Content-Type: application/json
+

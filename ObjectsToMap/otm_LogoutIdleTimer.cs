@@ -41,13 +41,13 @@ public static partial class ObjectsToMapData
 PrimaryKey = "id",
 Columns = new List<ColumnDefinition>
 {
-new ColumnDefinition("id", ColumnDataType.Int, "Int32","int", true, null, true, "id", 250),
+new ColumnDefinition("id", ColumnDataType.Int, "Int32","int", true, null, true, "id", 100),
 new ColumnDefinition("Application", ColumnDataType.String, "String","nvarchar", true, 50, true, "Application", 250),
 new ColumnDefinition("Site", ColumnDataType.String, "String","nvarchar", false, 50, true, "Site", 250),
 new ColumnDefinition("Area", ColumnDataType.String, "String","nvarchar", false, 50, true, "Area", 250),
-new ColumnDefinition("Seconds", ColumnDataType.Int, "Int32","int", false, null, true, "Seconds", 250),
-new ColumnDefinition("IsActive", ColumnDataType.Bool, "Boolean","bit", false, null, true, "IsActive", 250),
-new ColumnDefinition("LastEditDate", ColumnDataType.DateTime, "DateTime","datetime", true, null, true, "LastEditDate", 250),
+new ColumnDefinition("Seconds", ColumnDataType.Int, "Int32","int", false, null, true, "Seconds", 100),
+new ColumnDefinition("IsActive", ColumnDataType.Bool, "Boolean","bit", false, null, true, "IsActive", 100),
+new ColumnDefinition("LastEditDate", ColumnDataType.DateTime, "DateTime","datetime", true, null, true, "LastEditDate", 150),
 new ColumnDefinition("UserName", ColumnDataType.String, "String","nvarchar", true, 255, true, "UserName", 250),
 },
 // *** COLUMNS END ***

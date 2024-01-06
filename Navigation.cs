@@ -55,6 +55,11 @@ public class Navigation
                 {
                     Header = "DefectPieceRefs",
                     Template = "DefectPieceRefsEditor"
+                },
+                new NavigationItem
+                {
+                    Header = "QualityCategories",
+                    Template = "QualityCategoriesEditor"
                 }
             }
         });

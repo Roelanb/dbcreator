@@ -1,6 +1,6 @@
 ﻿//     var connectionString = "server=.;database=MES;Persist Security Info=False;Integrated Security=True;TrustServerCertificate=True;";            
 
-// var test = ObjectsToMapData.LogoutIdleTimer(connectionString);
+// var test = ObjectsToMapData.QualityCategories(connectionString);
 
 // test.LoadColumnsFromSqlCreateCommand();
 
@@ -42,7 +42,7 @@ foreach (var objectToMap in objectsToMap)
     var sharedFolder = "generated/" + objectToMap.FolderLevel1 + "/Shared";
     Directory.CreateDirectory(sharedFolder);
 
-    var testsFolder = "generated/" + objectToMap.FolderLevel1 + "/Tests";
+    var testsFolder = "tests/" + objectToMap.FolderLevel1;
     Directory.CreateDirectory(testsFolder);
 
     var databaseFolder = "generated/" + objectToMap.FolderLevel1 + "/Database";
@@ -226,7 +226,9 @@ if (generateBackend)
 
     foreach (var objectToMap in objectsToMap)
     {
-        var sourceFolder = source + "\\" + objectToMap.FolderLevel1 + "\\Tests";
+            var sourceTests = @"D:\Projects\crud\dbcreator\tests";
+    
+        var sourceFolder = sourceTests + "\\" + objectToMap.FolderLevel1;
         var destinationFolder = destination + "\\Features\\" + objectToMap.FolderLevel1 + "\\Tests";
 
         // create the desitonation folder

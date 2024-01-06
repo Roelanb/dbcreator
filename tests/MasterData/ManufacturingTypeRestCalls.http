@@ -1,0 +1,52 @@
+@endpoint=https://localhost:7295/
+@version=v1
+
+### get ManufacturingType
+
+GET {{endpoint}}{{version}}/ManufacturingType
+Content-Type: application/json
+
+### get ManufacturingType by KeyField
+
+GET {{endpoint}}{{version}}/ManufacturingType/TST
+Content-Type: application/json
+
+### post ManufacturingType
+
+POST {{endpoint}}{{version}}/ManufacturingType
+Content-Type: application/json
+
+
+                {
+                    "id": "id1",
+                    "Application": "Application1",
+                    "Site": "Site1",
+                    "Area": "Area1",
+                    "Seconds": 1,
+                    "IsActive": true,
+                    "LastEditDate": "2021-01-01T00:00:00",
+                    "UserName": "UserName1"
+
+             }
+### put ManufacturingType
+
+PUT {{endpoint}}{{version}}/ManufacturingType
+Content-Type: application/json
+
+
+                {
+                    "id": "id1",
+                    "Application": "Application1",
+                    "Site": "Site1",
+                    "Area": "Area1",
+                    "Seconds": 1,
+                    "IsActive": true,
+                    "LastEditDate": "2021-01-01T00:00:00",
+                    "UserName": "UserName1"
+
+             }
+### delete ManufacturingType
+
+DELETE {{endpoint}}{{version}}/ManufacturingType/TST
+Content-Type: application/json
+

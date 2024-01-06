@@ -1,0 +1,44 @@
+@endpoint=https://localhost:7295/
+@version=v1
+
+### get QualityCategories
+
+GET {{endpoint}}{{version}}/QualityCategories
+Content-Type: application/json
+
+### get QualityCategories by KeyField
+
+GET {{endpoint}}{{version}}/QualityCategories/TST
+Content-Type: application/json
+
+### post QualityCategories
+
+POST {{endpoint}}{{version}}/QualityCategories
+Content-Type: application/json
+
+
+                {
+                    "DefectQualityLevel": "L1",
+                    "English_Desc": "Level 1",
+                    "QALevelRanking": 1,
+                    "ReadOnly": true,
+                    "isActive": true
+             }
+### put QualityCategories
+
+PUT {{endpoint}}{{version}}/QualityCategories
+Content-Type: application/json
+
+
+                {
+                    "DefectQualityLevel": "L1",
+                    "English_Desc": "Level 1",
+                    "QALevelRanking": 1,
+                    "ReadOnly": true,
+                    "isActive": true
+             }
+### delete QualityCategories
+
+DELETE {{endpoint}}{{version}}/QualityCategories/TST
+Content-Type: application/json
+
