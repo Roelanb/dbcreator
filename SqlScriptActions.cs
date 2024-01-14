@@ -34,10 +34,23 @@ public partial class SqlScriptActions
 
     private void ExecuteNonQuery(string connnectionString, string commandString)
     {
+        try {
+
+        
         using (var connection = new SqlConnection(connnectionString))
         {
             connection.Open();
             connection.Execute(commandString);
+        }
+        }
+        catch(Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+  
+            Console.WriteLine(commandString);
+            Console.WriteLine(ex.Message);
+
+             Console.ResetColor();
         }
     }
 }

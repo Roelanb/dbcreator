@@ -12,12 +12,23 @@ var generateNavigation = true;
 
 var cleanUpFiles = true;
 
+var connectionString = "server=bebodbst3;database=MES;Persist Security Info=False;Integrated Security=True;TrustServerCertificate=True;";            
+var uiNameSpace = "MesExplorer";
+
+
+var generatedFolder = $"{Directory.GetCurrentDirectory()}" + @"\generated";
+
+var testsFolder = $"{Directory.GetCurrentDirectory()}" + @"\tests";
+
+Console.ForegroundColor = ConsoleColor.Red;
+Console.WriteLine($"Generating files in {generatedFolder}");
+Console.ResetColor();
+
 var converter = new Converter();
 
-var objectsToMap = ObjectsToMapData.GetObjectsToMap();
+var objectsToMap = ObjectsToMapData.GetObjectsToMap(connectionString);
 
-// add a folder called generated to the root of the project
-Directory.CreateDirectory("generated");
+
 
 var infrastructureApiFileText = converter.GenerateApiInfrastructureString(objectsToMap);
 
@@ -27,97 +38,60 @@ File.WriteAllText(infrastructureFolder + "/ServiceCollectionExtensions.cs", infr
 
 foreach (var objectToMap in objectsToMap)
 {
-    Directory.CreateDirectory("generated/" + objectToMap.FolderLevel1);
-
-    var controllersFolder = "generated/" + objectToMap.FolderLevel1 + "/Controllers";
-    Directory.CreateDirectory(controllersFolder);
-    Directory.CreateDirectory(controllersFolder + "/V1");
-
-    var entitiesFolder = "generated/" + objectToMap.FolderLevel1 + "/Entities";
-    Directory.CreateDirectory(entitiesFolder);
-
-    var queriesFolder = "generated/" + objectToMap.FolderLevel1 + "/Queries";
-    Directory.CreateDirectory(queriesFolder);
-
-    var sharedFolder = "generated/" + objectToMap.FolderLevel1 + "/Shared";
-    Directory.CreateDirectory(sharedFolder);
-
-    var testsFolder = "tests/" + objectToMap.FolderLevel1;
-    Directory.CreateDirectory(testsFolder);
-
-    var databaseFolder = "generated/" + objectToMap.FolderLevel1 + "/Database";
-    Directory.CreateDirectory(databaseFolder);
-
+    var fs = FileHelpers.CreateFolders("generated", objectToMap);
+    
     if (generateBackend)
     {
         var entityFileText = converter.GenerateEntityCSharpClass(objectToMap);
 
-        File.WriteAllText(entitiesFolder + "/" + objectToMap.EntityName + ".cs", entityFileText);
+        File.WriteAllText(fs.entitiesFolder + "/" + objectToMap.EntityName + ".cs", entityFileText);
 
         var repoFileText = converter.GenerateRepositoryClassString(objectToMap);
 
-        File.WriteAllText(sharedFolder + "/" + objectToMap.Name + "Repository.cs", repoFileText);
+        File.WriteAllText(fs.sharedFolder + "/" + objectToMap.Name + "Repository.cs", repoFileText);
 
         var iRepoFileText = converter.GenerateIRepositoryClassString(objectToMap);
 
-        File.WriteAllText(sharedFolder + "/I" + objectToMap.Name + "Repository.cs", iRepoFileText);
+        File.WriteAllText(fs.sharedFolder + "/I" + objectToMap.Name + "Repository.cs", iRepoFileText);
 
         var queryFileText = converter.GenerateQueryClassString(objectToMap);
 
-        File.WriteAllText(queriesFolder + "/" + objectToMap.Name + "Query.cs", queryFileText);
+        File.WriteAllText(fs.queriesFolder + "/" + objectToMap.Name + "Query.cs", queryFileText);
 
         var controllerFileText = converter.GenerateControllerClassString(objectToMap);
 
-        File.WriteAllText(controllersFolder + "/V1/" + objectToMap.Name + "Controller.cs", controllerFileText);
+        File.WriteAllText(fs.controllersFolder + "/V1/" + objectToMap.Name + "Controller.cs", controllerFileText);
 
         var exampleRestCallsFileText = converter.GenerateExampleRestCallsString(objectToMap);
 
-        File.WriteAllText(testsFolder + "/" + objectToMap.Name + "RestCalls.http", exampleRestCallsFileText);
+        File.WriteAllText(fs.testsFolder + "/" + objectToMap.Name + "RestCalls.http", exampleRestCallsFileText);
 
-        converter.GenerateDatabaseObjects(databaseFolder, objectToMap);
+        converter.GenerateDatabaseObjects(fs.databaseFolder, objectToMap);
 
 
     }
-
-    // ui code generation
-
-    Directory.CreateDirectory("generated/Features");
-    Directory.CreateDirectory("generated/Features/" + objectToMap.UiFolderLevel1);
-
-    var modelsFolder = "generated/Features/" + objectToMap.UiFolderLevel1 + "/Models";
-
-    Directory.CreateDirectory(modelsFolder);
-    Directory.CreateDirectory("generated/Features/" + objectToMap.UiFolderLevel1 + "/Pages");
-
-    var editorsFolder = "generated/Features/" + objectToMap.UiFolderLevel1 + "/Pages/Editors";
-    Directory.CreateDirectory(editorsFolder);
-
-
-    var servicesFolder = "generated/Features/" + objectToMap.UiFolderLevel1 + "/Services";
-
-    Directory.CreateDirectory(servicesFolder);
 
     if (generateFrontend)
     {
         var modelFileText = converter.GenerateModelClassString(objectToMap);
 
-        File.WriteAllText(modelsFolder + "/" + objectToMap.EntityName + ".cs", modelFileText);
+        File.WriteAllText(fs.modelsFolder + "/" + objectToMap.EntityName + ".cs", modelFileText);
 
         var iserviceFileText = converter.GenerateIServicesClassString(objectToMap);
 
-        File.WriteAllText(servicesFolder + "/I" + objectToMap.Name + "Service.cs", iserviceFileText);
+        File.WriteAllText(fs.servicesFolder + "/I" + objectToMap.Name + "Service.cs", iserviceFileText);
 
         var serviceFileText = converter.GenerateServicesClassString(objectToMap);
 
-        File.WriteAllText(servicesFolder + "/" + objectToMap.Name + "Service.cs", serviceFileText);
+        File.WriteAllText(fs.servicesFolder + "/" + objectToMap.Name + "Service.cs", serviceFileText);
 
         var editorFileText = converter.GenerateEditorRazorClassString(objectToMap);
 
-        File.WriteAllText(editorsFolder + "/" + objectToMap.Name + "Editor.razor", editorFileText);
+        File.WriteAllText(fs.editorsFolder + "/" + objectToMap.Name + "Editor.razor", editorFileText);
 
         var editorCodeFileText = converter.GenerateEditorClassString(objectToMap);
 
-        File.WriteAllText(editorsFolder + "/" + objectToMap.Name + "Editor.razor.cs", editorCodeFileText);
+        File.WriteAllText(fs.editorsFolder + "/" + objectToMap.Name + "Editor.razor.cs", editorCodeFileText);
 
 
 
@@ -129,8 +103,8 @@ foreach (var objectToMap in objectsToMap)
 if (generateBackend)
 {
     // copy all files from the generated folder to the project folder
-    var source = @"D:\Projects\crud\dbcreator\generated";
-    var destination = @"D:\Projects\crud\CrudApi\DataService.Config";
+    var source = generatedFolder;
+    var destination = @"C:\capdev\Repos\DataService\DataService\DataService.Config";
 
     foreach (var objectToMap in objectsToMap)
     {
@@ -226,7 +200,7 @@ if (generateBackend)
 
     foreach (var objectToMap in objectsToMap)
     {
-            var sourceTests = @"D:\Projects\crud\dbcreator\tests";
+        var sourceTests = testsFolder;
     
         var sourceFolder = sourceTests + "\\" + objectToMap.FolderLevel1;
         var destinationFolder = destination + "\\Features\\" + objectToMap.FolderLevel1 + "\\Tests";
@@ -266,8 +240,8 @@ if (generateBackend)
 if (generateFrontend)
 {
     // copy all files from the generated folder to the project folder
-    var source = @"D:\Projects\crud\dbcreator\generated\features\config\Models";
-    var destination = @"D:\Projects\crud\CrudUi\CrudUi\Pages\Features\Config\Models";
+    var source = @$"{generatedFolder}\features\config\Models";
+    var destination = @"C:\capdev\Repos\MesExplorer\MesExplorer\Features\Config\Models";
 
     // copy the file with *.cs extension from source to destination
     foreach (string dirPath in Directory.GetFiles(source, "*.cs", SearchOption.TopDirectoryOnly))
@@ -278,8 +252,8 @@ if (generateFrontend)
         File.Copy(dirPath, dirPath.Replace(source, destination), true);
     }
 
-    source = @"D:\Projects\crud\dbcreator\generated\features\config\Services";
-    destination = @"D:\Projects\crud\CrudUi\CrudUi\Pages\Features\Config\Services";
+    source = @$"{generatedFolder}\features\config\Services";
+    destination =  @"C:\capdev\Repos\MesExplorer\MesExplorer\Features\Config\Services";
 
     // copy the file with *.cs extension from source to destination
     foreach (string dirPath in Directory.GetFiles(source, "*.cs", SearchOption.TopDirectoryOnly))
@@ -290,8 +264,8 @@ if (generateFrontend)
         File.Copy(dirPath, dirPath.Replace(source, destination), true);
     }
 
-    source = @"D:\Projects\crud\dbcreator\generated\features\config\Pages\Editors";
-    destination = @"D:\Projects\crud\CrudUi\CrudUi\Pages\Features\Config\Pages\Editors";
+    source = @$"{generatedFolder}\features\config\Pages\Editors";
+    destination =  @"C:\capdev\Repos\MesExplorer\MesExplorer\Features\Config\Pages\Editors";
 
     // copy the file with *.cs extension from source to destination
     foreach (string dirPath in Directory.GetFiles(source, "*.*", SearchOption.TopDirectoryOnly))
@@ -302,7 +276,7 @@ if (generateFrontend)
         File.Copy(dirPath, dirPath.Replace(source, destination), true);
     }
 
-     destination = @"D:\Projects\crud\CrudUi\CrudUi\Program.cs";
+     destination = @"C:\capdev\Repos\MesExplorer\MesExplorer\Program.cs";
      var serviceDeclarationString = converter.GenerateFrontEndServiceDeclarationString(objectsToMap);
 
 
@@ -324,12 +298,12 @@ if (generateNavigation)
     var navFolder = "generated/Features/Config/Pages/Navigation";
     Directory.CreateDirectory(navFolder);
 
-    Navigation.GenerateNavigationFiles(navFolder);
+    Navigation.GenerateNavigationFiles(uiNameSpace,navFolder);
 
 
     // copy all files from the generated folder to the project folder
-    var source = @"D:\Projects\crud\dbcreator\generated\features\config\Pages\Navigation";
-    var destination = @"D:\Projects\crud\CrudUi\CrudUi\Pages\Features\Config\Pages\Navigation";
+    var source = @$"{generatedFolder}\features\config\Pages\Navigation";
+    var destination = @"C:\capdev\Repos\MesExplorer\MesExplorer\Features\Config\Pages\Navigation";
 
     // copy the file with *.cs extension from source to destination
     foreach (string dirPath in Directory.GetFiles(source, "*.*", SearchOption.TopDirectoryOnly))

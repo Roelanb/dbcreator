@@ -11,7 +11,7 @@ public static partial class ObjectsToMapData
             UiFolderLevel1 = "Config",
             ConnectionString = connectionString,
             NameSpace = "DataService.Config.Features.Quality",
-            UiNameSpace = "CrudUi.Pages",
+            UiNameSpace = "MesExplorer",
 
             ExampleKeyValue = "TST",
             ExampleObjectListJson = @"[

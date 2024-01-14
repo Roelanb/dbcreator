@@ -17,7 +17,7 @@ public partial class Converter
         sb.AppendLine($"using {o.UiNameSpace.Replace(".Pages","")}.Configuration;");
         sb.AppendLine("using Microsoft.Extensions.Options;");
         sb.AppendLine("using Microsoft.Extensions.Logging;");
-        sb.AppendLine($"using {o.UiNameSpace}.Shared;");
+        sb.AppendLine($"using {o.UiNameSpace}.Features.Shared;");
         sb.AppendLine("using System.Net.Http.Json;");
         sb.AppendLine($"using {o.UiNameSpace}.Features.Config.Models;");
 
@@ -191,7 +191,7 @@ public partial class Converter
         var sb = new StringBuilder();
     
         sb.AppendLine($"using {o.UiNameSpace}.Features.Config.Models;");
-        sb.AppendLine($"using {o.UiNameSpace}.Shared;");
+        sb.AppendLine($"using {o.UiNameSpace}.Features.Shared;");
         sb.AppendLine("");
         sb.AppendLine($"namespace {o.UiNameSpace}.Features.Config.Services;");
 

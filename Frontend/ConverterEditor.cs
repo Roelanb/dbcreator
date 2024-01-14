@@ -79,7 +79,7 @@ public partial class Converter
         sb.AppendLine("    </SfToolbar>");
         sb.AppendLine("");
         sb.AppendLine("    <GridColumns>");
-        sb.AppendLine("        <GridColumn HeaderText=\"\" Width=\"30\" MinWidth=\"120\" TextAlign=\"TextAlign.Left\">");
+        sb.AppendLine("        <GridColumn HeaderText=\"\" Width=\"120\" MinWidth=\"120\" TextAlign=\"TextAlign.Left\">");
         sb.AppendLine("            <GridCommandColumns>");
         sb.AppendLine("                <GridCommandColumn Type=\"CommandButtonType.Edit\" ButtonOption=\"@(new CommandButtonOptions() {IconCss=\"e-icons e-edit\", CssClass=\"e-flat\" })\"></GridCommandColumn>");
         sb.AppendLine("                <GridCommandColumn Type=\"CommandButtonType.Delete\" ButtonOption=\"@(new CommandButtonOptions() {IconCss=\"e-icons e-delete\", CssClass=\"e-flat\" })\"></GridCommandColumn>");
@@ -122,7 +122,7 @@ public partial class Converter
 
         sb.AppendLine($"using {o.UiNameSpace}.Features.Config.Models;");
         sb.AppendLine($"using {o.UiNameSpace}.Features.Config.Services;");
-        sb.AppendLine($"using {o.UiNameSpace}.Shared;");
+        sb.AppendLine($"using {o.UiNameSpace}.Features.Shared;");
         sb.AppendLine($"using Microsoft.AspNetCore.Components;");
         sb.AppendLine($"using Microsoft.FluentUI.AspNetCore.Components;");
         sb.AppendLine($"using Syncfusion.Blazor.Grids;");

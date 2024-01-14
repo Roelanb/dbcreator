@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\crud\\dbcreator\\dbcreator.csproj": {}
+    "C:\\capdev\\poc\\dbcreator\\dbcreator.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\crud\\dbcreator\\dbcreator.csproj": {
+    "C:\\capdev\\poc\\dbcreator\\dbcreator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\crud\\dbcreator\\dbcreator.csproj",
+        "projectUniqueName": "C:\\capdev\\poc\\dbcreator\\dbcreator.csproj",
         "projectName": "dbcreator",
-        "projectPath": "D:\\Projects\\crud\\dbcreator\\dbcreator.csproj",
-        "packagesPath": "C:\\Users\\bart\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\crud\\dbcreator\\obj\\",
+        "projectPath": "C:\\capdev\\poc\\dbcreator\\dbcreator.csproj",
+        "packagesPath": "C:\\Users\\broelant\\.nuget\\packages\\",
+        "outputPath": "C:\\capdev\\poc\\dbcreator\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\bart\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\broelant\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

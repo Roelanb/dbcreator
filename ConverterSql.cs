@@ -196,7 +196,7 @@ public partial class Converter
         sb.AppendLine($"    SET NOCOUNT ON;");
 
         sb.AppendLine($"    UPDATE {o.TableName} SET");
-        foreach (var column in columns)
+        foreach (var column in columns.Where(x => x.IsPrimaryKey == false))             // all columns except the primary key
         {
             sb.AppendLine($"        [{column.ColumnName}] = @{column.ColumnName},");
         }

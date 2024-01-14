@@ -88,25 +88,25 @@ public class Navigation
     }
 
 
-    public static string GenerateNavigationFiles(string navFolder)
+    public static string GenerateNavigationFiles(string uiNamespace,string navFolder)
     {
         var navigation = GetNavigation();
 
-        var topNavigationRazorString = GetTopNavigationRazor("CrudUi.Pages", navigation).ToString();
+        var topNavigationRazorString = GetTopNavigationRazor(uiNamespace, navigation).ToString();
 
         File.WriteAllText(navFolder + "/" + "ConfigMain.razor", topNavigationRazorString);
 
-        var topNavigationRazorCsString = GetTopNavigationRazorCs("CrudUi.Pages", navigation).ToString();
+        var topNavigationRazorCsString = GetTopNavigationRazorCs(uiNamespace, navigation).ToString();
 
         File.WriteAllText(navFolder + "/" + "ConfigMain.razor.cs", topNavigationRazorCsString); 
 
         foreach (var navigationItem in navigation)
         {
-            var sideNavigationRazorString = GetSideNavigationRazor("CrudUi.Pages", navigationItem, navigationItem.ChildItems).ToString();
+            var sideNavigationRazorString = GetSideNavigationRazor(uiNamespace, navigationItem, navigationItem.ChildItems).ToString();
 
             File.WriteAllText(navFolder + "/Config" + navigationItem.Header + ".razor", sideNavigationRazorString);
 
-            var sideNavigationRazorCsString = GetSideNavigationRazorCs("CrudUi.Pages", navigationItem, navigationItem.ChildItems).ToString();
+            var sideNavigationRazorCsString = GetSideNavigationRazorCs(uiNamespace, navigationItem, navigationItem.ChildItems).ToString();
 
             File.WriteAllText(navFolder + "/Config" + navigationItem.Header + ".razor.cs", sideNavigationRazorCsString);
         }

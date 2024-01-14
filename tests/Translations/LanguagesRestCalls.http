@@ -8,7 +8,7 @@ Content-Type: application/json
 
 ### get Languages by KeyField
 
-GET {{endpoint}}{{version}}/Languages/GERMAN
+GET {{endpoint}}{{version}}/Languages/ZULU
 Content-Type: application/json
 
 ### post Languages
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 
                 {
-                    "name": "GERMAN",
+                    "name": "ZULU",
                     "isActive": true
                 }
 ### put Languages
@@ -28,11 +28,11 @@ Content-Type: application/json
 
 
                 {
-                    "name": "GERMAN",
+                    "name": "ZULU",
                     "isActive": true
                 }
 ### delete Languages
 
-DELETE {{endpoint}}{{version}}/Languages/GERMAN
+DELETE {{endpoint}}{{version}}/Languages/ZULU
 Content-Type: application/json
 
